@@ -1,6 +1,7 @@
 import numpy as np
 from Pyfhel import Pyfhel
 
+
 class SealHE:
     def __int__(self, init_args, operation_list: set):
         self.operation_list = operation_list
