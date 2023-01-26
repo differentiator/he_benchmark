@@ -3,14 +3,11 @@ from Pyfhel import Pyfhel
 
 
 class SealHE:
-    def __int__(self, init_args, operation_list: set):
+    def __init__(self, init_args, operation_list: set):
         self.operation_list = operation_list
-        self.int_HE = Pyfhel()  # Creating empty Pyfhel object
-        self.int_HE.contextGen(scheme='bfv', n=2 ** 14, t_bits=20)  # Generate context for 'bfv'/'ckks' scheme
-        # The n defines the number of plaintext slots.
-        #  There are many configurable parameters on this step
-        #  More info in Demo_2, Demo_3, and Pyfhel.contextGen()
-        self.int_HE.keyGen()
+        
+        self.int_HE = Pyfhel(key_gen=True, context_params={'scheme': 'BFV', 'n': 2**13, 't': 65537, 't_bits': 20, 'sec': 128,})
+        
         float_HE = Pyfhel()  # Creating empty Pyfhel object
         ckks_params = {
             'scheme': 'CKKS',  # can also be 'ckks'
@@ -25,12 +22,44 @@ class SealHE:
             # Intermediate values should be  close to log2(scale)
             # for each operation, to have small rounding errors.
         }
+        self.float_He = Pyfhel()
         float_HE.contextGen(**ckks_params)  # Generate context for bfv scheme
         float_HE.keyGen()  # Key Generation: generates a pair of public/secret keys
         float_HE.rotateKeyGen()
 
-    def addition_int(self, args):
+    def encryption_int(self, arr):
+        ptxt = int_HE.encodeInt(arr)
+        ctxt = int_HE.encrypt(ctxt)
+        return ctxt
+    
+    def addition_int(self, ctxt1, ctxt2):# to remember that to compute the operation the ctxt have to be built with the same context
+        ccSum = ctxt1 + ctxt2
+        return ccSum
+    
+    def multiplication_int(self, ctxt1, ctxt2):# to remember that to compute the operation the ctxt have to be built with the same context
+        ccMul = ctxt1 * ctxt2
+        return ccMul
+    
+    def relinearization_int(self, ctxt):
+        rel_ctxt = int_HE.relinearize(ctxt)
+        return rel_ctxt
+    
+    def decrypt_int(self, ctxt):
+        res = int_HE.decryptInt(ctxt)
+        return res
+    
+    def encription_float(self, args):
         return
 
     def addition_float(self, args):
         return
+
+    def multiplication_float(self, args):
+        return
+
+
+
+
+
+
+
