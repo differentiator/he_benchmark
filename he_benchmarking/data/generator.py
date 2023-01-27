@@ -6,6 +6,7 @@ import numpy as np
 #   - low: Lower boundary for random samples (e.g. -10000)
 #   - high: Higher boundary for random samples (e.g. 10000)
 #   - seed: Random seed, which can be set to ensure reproducibility
+# Python version: 3.10+ is needed, since the function "ground_truth" uses the match-case functionality.
 class DataGenerator():
 
     def __init__(self, low, high, seed=None):
@@ -54,6 +55,7 @@ class DataGenerator():
         x1 = np.random.uniform(self.low, self.high, size=size)
         x2 = np.random.uniform(self.low, self.high, size=size)
 
+        
         return x1, x2
 
     # Function for generating the ground truth of combining the two randomly generated numpy arrays. The type of operation needs to be specified through "type".
@@ -72,8 +74,5 @@ class DataGenerator():
                 return np.multiply(x1, x2)
             case "div":
                 return np.divide(x1, x2)
-
-
-
 
 
