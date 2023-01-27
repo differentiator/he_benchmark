@@ -55,7 +55,6 @@ class DataGenerator():
         x1 = np.random.uniform(self.low, self.high, size=size)
         x2 = np.random.uniform(self.low, self.high, size=size)
 
-        
         return x1, x2
 
     # Function for generating the ground truth of combining two randomly generated numpy arrays. The type of operation needs to be specified through "type".
