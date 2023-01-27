@@ -58,7 +58,7 @@ class DataGenerator():
         
         return x1, x2
 
-    # Function for generating the ground truth of combining the two randomly generated numpy arrays. The type of operation needs to be specified through "type".
+    # Function for generating the ground truth of combining two randomly generated numpy arrays. The type of operation needs to be specified through "type".
     # Options for "type":
     #   - "add": Addition
     #   - "sub": Subtraction
