@@ -60,19 +60,19 @@ class DataGenerator():
 
     # Function for generating the ground truth of combining two randomly generated numpy arrays. The type of operation needs to be specified through "type".
     # Options for "type":
-    #   - "add": Addition
-    #   - "sub": Subtraction
-    #   - "mul": Multiplication
-    #   - "div": Division
+    #   - 0: Addition
+    #   - 1: Subtraction
+    #   - 2: Multiplication
+    #   - 3: Division
     def ground_truth(self, type, x1, x2):
         match type:
-            case "add":
+            case 0:
                 return np.add(x1, x2)
-            case "sub":
+            case 1:
                 return np.subtract(x1, x2)
-            case "mul":
+            case 2:
                 return np.multiply(x1, x2)
-            case "div":
+            case 3:
                 return np.divide(x1, x2)
 
 
