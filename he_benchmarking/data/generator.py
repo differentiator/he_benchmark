@@ -63,6 +63,7 @@ class DataGenerator():
     #   - 1: Subtraction
     #   - 2: Multiplication
     #   - 3: Division
+    #   - 4: Scalar product
     def ground_truth(self, type, x1, x2):
         match type:
             case 0:
@@ -73,5 +74,6 @@ class DataGenerator():
                 return np.multiply(x1, x2)
             case 3:
                 return np.divide(x1, x2)
-
+            case 4:
+                return np.dot(x1, x2)
 
