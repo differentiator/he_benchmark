@@ -36,20 +36,50 @@ d = example.encryption_int([6,5])
 res_mult = example.multiplication_int(c,d)
 example.relinearization_int(res_mult)
 
-scalar_prod = example.scalar_product(c,d) # the scalar product actually work, nevetheless there is some optimization that
+scalar_prod = example.scalar_product_int(c,d) # the scalar product actually work, nevetheless there is some optimization that
                                             # regards the context parameters if the length of the array is too long, that I currently not implent
                                             
 decr_res = example.decrypt_int(scalar_prod)
 # print(decr_res)
 
-dir = example.save_in_file(3)
-example.restore_from_file(3)
+dir = example.save_in_file_int(3)
+example.restore_from_file_int(3)
 
-context, public_key, secret_key, relin_key, rotate_key, c, p = example.save_in_bytes(3)
-example.restore_from_bytes(context, public_key, secret_key, relin_key, rotate_key, c, p, 3)
+context, public_key, secret_key, relin_key, rotate_key, c, p = example.save_in_bytes_int(3)
+example.restore_from_bytes_int(context, public_key, secret_key, relin_key, rotate_key, c, p, 3)
 
 
+e = example.encryption_float(2.75)
+f = example.encryption_float(3.25)
 
+res_sum = example.addition_float(e,f)
+
+res_mult = example.multiplication_float(e,f)
+
+copy_res_mult = copy.copy(res_mult)
+example.relinearization_float(res_mult)
+# print(copy_res_mult, "->", res_mult)
+
+decr_res = example.decrypt_float(res_mult)
+# print(decr_res)
+
+g = example.encryption_float([2.5,3.3])
+h = example.encryption_float([6.9,5.1])
+
+res_mult = example.multiplication_float(g,h)
+example.relinearization_float(res_mult)
+
+scalar_prod = example.scalar_product_float(g,h) # the scalar product actually work, nevetheless there is some optimization that
+                                            # regards the context parameters if the length of the array is too long, that I currently not implent
+                                            
+decr_res = example.decrypt_float(res_mult)
+# print(decr_res)
+
+dir = example.save_in_file_float(3.75)
+example.restore_from_file_float(3.75)
+
+context, public_key, secret_key, relin_key, rotate_key, c, p = example.save_in_bytes_float(4.334)
+example.restore_from_bytes_float(context, public_key, secret_key, relin_key, rotate_key, c, p, 4.334)
 
 
 ## TRASH 
