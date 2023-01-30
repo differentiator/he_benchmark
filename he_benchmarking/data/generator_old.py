@@ -9,17 +9,13 @@ import numpy as np
 # Python version: 3.10+ is needed, since the function "ground_truth" uses the match-case functionality.
 class DataGenerator():
 
-    def __init__(self, low, high, size, seed=None):
+    def __init__(self, low, high, seed=None):
         self.low = low
         self.high = high
-        self.size = size
         self.seed = seed
 
         if seed is not None:
             np.random.seed(seed)
-        
-        x1_int, x2_int = self.generateInts(size)
-        x1_float, x2_float = self.generateFloats(size)
     
     
     
@@ -72,12 +68,14 @@ class DataGenerator():
     #   - 4: Scalar product
     def ground_truth(self, type, x1, x2):
         match type:
-            case "addition_int":
-                return (self.x1_int, self.x2_int), np.add(self.x1_int, self._int)
-            case "addition_float":
-                return (self.x1_float, self.x2_float), np.add(self.x1_float, self._float)
-            case "multiplication_int":
-                return (self.x1_int, self.x2_int), np.multiply(self.x1_int, self._int)
-            case "multiplication_float":
-                return (self.x1_float, self.x2_float), np.multiply(self.x1_float, self._floats)
+            case 0:
+                return np.add(x1, x2)
+            case 1:
+                return np.subtract(x1, x2)
+            case 2:
+                return np.multiply(x1, x2)
+            case 3:
+                return np.divide(x1, x2)
+            case 4:
+                return np.dot(x1, x2)
 
