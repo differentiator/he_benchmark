@@ -35,7 +35,7 @@ class SealHE:
         
         return ptxt
     
-    # function to encrypt integers, going from arr -> ctxt
+    # function to encrypt integers, going from ptxt -> ctxt
     def encryption_int(self, arr):       
         ptxt = self.encode_int(arr)
         
