@@ -18,8 +18,8 @@ class DataGenerator():
         if seed is not None:
             np.random.seed(seed)
         
-        x1_int, x2_int = self.generateInts(size)
-        x1_float, x2_float = self.generateFloats(size)
+        self.x1_int, self.x2_int = self.generateInts(size)
+        self.x1_float, self.x2_float = self.generateFloats(size)
     
     
     
