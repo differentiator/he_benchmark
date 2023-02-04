@@ -3,6 +3,7 @@ import argparse
 import itertools
 import json
 from benchmarking.runner import Benchmark
+from report.generator import ReportGenerator
 
 from utils.validator import str2bool
 import encryption
@@ -31,7 +32,8 @@ def main(args):
             print("ERROR: missing python module: " + module + "\n")
     benchmark = Benchmark(encryption_classes=classes, num_runs=args.number_of_runs)
     results = benchmark.run()
-    pretty_print(results)
+    report_gen = ReportGenerator(results)
+    pretty_print(report_gen.generate())
 
 
 if __name__ == "__main__":
