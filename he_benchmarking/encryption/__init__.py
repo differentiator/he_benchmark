@@ -1,1 +1,1 @@
-from .seal import SealHE
+from .pyfhel_lib import PyfhelHE

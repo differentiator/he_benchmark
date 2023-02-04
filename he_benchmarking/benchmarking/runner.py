@@ -1,5 +1,8 @@
 import time
 from collections import defaultdict
+import inspect
+from .operations import DefaultOperations
+from data.generator import DataGenerator, get_operation_names
 
 
 class Benchmark:
@@ -12,20 +15,35 @@ class Benchmark:
         Measure time for operations in every iteration for every operation
         :return:
         """
+        data_gen = DataGenerator()
         result = defaultdict(dict)
         for enc in self.encryption_classes:
             class_object = enc()
             impl_name = enc.__name__
             result[impl_name] = defaultdict(list)
-            for operation in class_object.operation_list:
+            for operation in get_operation_names(DefaultOperations):
                 # 1. Do preparations
+                operation_data = getattr(data_gen, operation, None)
                 operation_function = getattr(class_object, operation, None)
                 if not operation_function:
                     continue
+                if not operation_data:
+                    continue
+                inputs, ground_truth = operation_data()
+                if "int" in operation:
+                    encryption_func = getattr(class_object, "encryption_int_from_encoding")
+                elif "float" in operation:
+                    encryption_func = getattr(class_object, "encryption_float_from_encoding")
+                else:
+                    raise ValueError("Only encryption for int or float are supported")
+
+                if not isinstance(inputs, tuple):
+                    inputs = (inputs,)
+                encrypted_inputs = list(map(encryption_func, inputs))
                 # 2. Run and measure time
                 for i_run in range(self.num_runs):
                     start = time.time()
-                    operation_function()
+                    operation_function(*encrypted_inputs)
                     end = time.time()
                     result[impl_name][operation].append(end - start)
                 # 3. Save result

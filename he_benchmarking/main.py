@@ -18,7 +18,7 @@ import encryption
 def main(args):
     """ Main entry point of the app """
     classes = []
-    for module in itertools.chain(*args.class_names):
+    for module in itertools.chain(*args.class_name):
         try:
             imported_class = getattr(encryption, module)
             classes.append(imported_class)
@@ -34,10 +34,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--number_of_runs", type=int, default=10,
                         help="Number of runs per operation")
-    parser.add_argument("-c", "--class_names", action='append', nargs='+',
-                        help="Class names of implemented backends")
+    parser.add_argument("-c", "--class_name", action='append', nargs='+',
+                        help="Class name of implemented backends, can be multiple")
     parser.add_argument("-v", "--verbose", type=str2bool,
-                        const=True, default=False,
+                        default=False,
                         help="Verbosity for logging")
 
     args = parser.parse_args()
