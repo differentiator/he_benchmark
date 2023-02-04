@@ -1,8 +1,8 @@
 class DefaultOperations:
-    # encode_int = "encode_int"
-    # encode_float = "encode_float"
-    # encryption_int_from_encoding = "encryption_int_from_encoding"
-    # encryption_float_from_encoding = "encryption_float_from_encoding"
+    encode_int = "encode_int"
+    encode_float = "encode_float"
+    encryption_int_from_encoding = "encryption_int_from_encoding"
+    encryption_float_from_encoding = "encryption_float_from_encoding"
     # encryption_int = "encryption_int"
     # encryption_float = "encryption_float"
     addition_int = "addition_int"
@@ -19,3 +19,11 @@ class DefaultOperations:
     save_in_bytes_float = "save_in_bytes_float"
     restore_from_bytes_int = "restore_from_bytes_int"
     restore_from_bytes_float = "restore_from_bytes_float"
+
+
+class PlainTextOperations:
+    encode_int = "encode_int"
+    encode_float = "encode_float"
+    encryption_int_from_encoding = "encryption_int_from_encoding"
+    encryption_float_from_encoding = "encryption_float_from_encoding"
+

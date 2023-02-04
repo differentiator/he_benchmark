@@ -1,7 +1,7 @@
 import time
 from collections import defaultdict
 import inspect
-from .operations import DefaultOperations
+from .operations import DefaultOperations, PlainTextOperations
 from data.generator import DataGenerator, get_operation_names
 
 
@@ -17,6 +17,7 @@ class Benchmark:
         """
         data_gen = DataGenerator()
         result = defaultdict(dict)
+        plain_text_operations = list(get_operation_names(PlainTextOperations))
         for enc in self.encryption_classes:
             class_object = enc()
             impl_name = enc.__name__
@@ -39,11 +40,12 @@ class Benchmark:
 
                 if not isinstance(inputs, tuple):
                     inputs = (inputs,)
-                encrypted_inputs = list(map(encryption_func, inputs))
+                if operation not in plain_text_operations:
+                    inputs = list(map(encryption_func, inputs))
                 # 2. Run and measure time
                 for i_run in range(self.num_runs):
                     start = time.time()
-                    operation_function(*encrypted_inputs)
+                    operation_function(*inputs)
                     end = time.time()
                     result[impl_name][operation].append(end - start)
                 # 3. Save result
