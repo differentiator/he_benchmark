@@ -6,6 +6,14 @@ from benchmarking.runner import Benchmark
 from utils.validator import str2bool
 import encryption
 
+# operations that can be compared at the moment are encryption and decryption, sum, multipliation and dot product.
+# Then, save and restoring (be carefull, this operation have to be executed and benchamarked toghether because the output of the first function differs)
+# the mentioned operation work for both int and float
+# WAITING FOR --> RELINEARIZATION
+# POSSIBLE SOLUTIONS --> 1. include in all the operations in Pyfhel that require a relinearization (i think just mult and dot) a relinearization so to have a fair comparison
+#                        2. find a way to relinearize manually in TENSeal
+#                        3. ignore the problem because I don't want to work on Data Security anymore :)
+
 
 def main(args):
     """ Main entry point of the app """
