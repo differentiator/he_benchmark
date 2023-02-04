@@ -7,19 +7,24 @@ import os
 from math import isclose
 
 class TenSealHE:
-    def __init__(self):#, init_args, operation_list: set):
+    def __init__(self, n_int, plain_degree_int, n_float, scale, coeff_mod_bit_sizes):#, init_args, operation_list: set):
         #self.operation_list = operation_list
+        # self.int_context = ts.context(ts.SCHEME_TYPE.BFV, poly_modulus_degree=4096, plain_modulus=1032193)
         
-        self.int_context = ts.context(ts.SCHEME_TYPE.BFV, poly_modulus_degree=4096, plain_modulus=1032193)
+        self.int_context = ts.context(ts.SCHEME_TYPE.BFV, poly_modulus_degree=n_int, plain_modulus=plain_degree_int)
         self.int_context.auto_relin = True#False
         self.int_context.generate_galois_keys() #what is it
         
-        
-        poly_mod_degree = 2**14
-        coeff_mod_bit_sizes = [60, 30, 30, 30, 60]
-        self.float_context = ts.context(ts.SCHEME_TYPE.CKKS, poly_mod_degree, -1, coeff_mod_bit_sizes)
+        # poly_mod_degree = 2**14
+        # coeff_mod_bit_sizes = [60, 30, 30, 30, 60]
+        # self.float_context = ts.context(ts.SCHEME_TYPE.CKKS, poly_mod_degree, -1, coeff_mod_bit_sizes)
+        # self.float_context.auto_relin= True#False
+        # self.float_context.global_scale = 2**30
+        # self.float_context.generate_galois_keys()
+                        
+        self.float_context = ts.context(scheme = ts.SCHEME_TYPE.CKKS, poly_modulus_degree = n_float, coeff_mod_bit_sizes = coeff_mod_bit_sizes)
         self.float_context.auto_relin= True#False
-        self.float_context.global_scale = 2**30
+        self.float_context.global_scale = scale
         self.float_context.generate_galois_keys()
     
     # compared with Pyfhel, Tenseal doesn't require this double passage of encoding and encrypting

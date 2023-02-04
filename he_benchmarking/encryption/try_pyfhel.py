@@ -1,10 +1,10 @@
-from seal import SealHE
+from pyfhel_lib import PyfhelHE
 from Pyfhel import Pyfhel
 import numpy as np
 import copy
 
 
-example = SealHE()
+example = PyfhelHE(n_int=4096, plain_degree_int=65537, n_float=8192, scale=2**30, coeff_mod_bit_sizes=[60, 30, 30, 30, 60])
 
 # pass two random integers to encrypt them
 a = example.encryption_int(3)
@@ -34,7 +34,6 @@ c = example.encryption_int([2,3])
 d = example.encryption_int([6,5])
 
 res_mult = example.multiplication_int(c,d)
-example.relinearization_int(res_mult)
 
 scalar_prod = example.scalar_product_int(c,d) # the scalar product actually work, nevetheless there is some optimization that
                                               # regards the context parameters if the length of the array is too long, that I currently not implent
@@ -61,7 +60,6 @@ res_mult = example.multiplication_float(e,f)
 print("multiplication: ", res_mult)
 
 copy_res_mult = copy.copy(res_mult)
-example.relinearization_float(res_mult)
 # print(copy_res_mult, "->", res_mult)
 
 decr_res = example.decrypt_float(res_mult)
@@ -72,7 +70,6 @@ g = example.encryption_float([2.5,3.3])
 h = example.encryption_float([6.9,5.1])
 
 res_mult = example.multiplication_float(g,h)
-example.relinearization_float(res_mult)
 
 scalar_prod = example.scalar_product_float(g,h) # the scalar product actually work, nevetheless there is some optimization that
                                             # regards the context parameters if the length of the array is too long, that I currently not implent

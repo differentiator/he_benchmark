@@ -5,15 +5,22 @@ import os
 from math import isclose
 
 
-class SealHE:
-    def __init__(self):#, init_args, operation_list: set):
+class PyfhelHE:
+    def __init__(self, n_int, plain_degree_int, n_float, scale, coeff_mod_bit_sizes):#, init_args, operation_list: set):
         #self.operation_list = operation_list
         
-        self.int_HE = Pyfhel(key_gen=True, context_params={'scheme': 'BFV', 'n': 2**13, 't': 65537, 't_bits': 20, 'sec': 128,})
+        # self.int_HE = Pyfhel(key_gen=True, context_params={'scheme': 'BFV', 'n': 2**13, 't': 65537, 'sec': 128,})
+
+        self.int_HE = Pyfhel(key_gen=True, context_params={'scheme': 'BFV', 'n': n_int, 't': plain_degree_int, 'sec': 128,})
+        self.int_HE.relinKeyGen()
+        self.int_HE.rotateKeyGen()
         # self.tmp_dir_int = tempfile.TemporaryDirectory() #for saving and restoring integers info
         # self.tmp_dir_name_int = self.tmp_dir_int.name
- 
-        self.float_HE = Pyfhel(key_gen=True, context_params={'scheme': 'CKKS', 'n': 2**14, 'scale': 2**30, 'qi_sizes': [60, 30, 30, 30, 60]})
+
+        # self.float_HE = Pyfhel(key_gen=True, context_params={'scheme': 'CKKS', 'n': 2**14, 'scale': 2**30, 'qi_sizes': [60, 30, 30, 30, 60]}) 
+        self.float_HE = Pyfhel(key_gen=True, context_params={'scheme': 'CKKS', 'n': n_float, 'scale': scale, 'qi_sizes': coeff_mod_bit_sizes})
+        self.float_HE.relinKeyGen()
+        self.float_HE.rotateKeyGen()
         # self.tmp_dir_float = tempfile.TemporaryDirectory() #for saving and restoring floats info
         # self.tmp_dir_name_float = self.tmp_dir_float.name
         
@@ -48,7 +55,7 @@ class SealHE:
         ctxt = self.float_HE.encryptPtxt(ptxt)
         return ctxt
     
-    def encryption_int(self, arr): #this operation are for comparison with the other library since we do not do this double passage encoding and encrypting every time
+    def encryption_int(self, arr): #this operations are for comparison with the other library since we do not do this double passage encoding and encrypting every time
         if isinstance(arr, int):
             arr = np.array([arr])
         arr = np.array(arr, dtype=np.int64)       
@@ -76,10 +83,12 @@ class SealHE:
     
     def multiplication_int(self, ctxt1, ctxt2):# to remember that to compute the operation the ctxt have to be built with the same context
         ccMul = self.int_HE.multiply(ctxt1, ctxt2, in_new_ctxt=True)
+        ~ccMul
         return ccMul
     
     def multiplication_float(self, ctxt1, ctxt2):# to remember that to compute the operation the ctxt have to be built with the same context
         ccMul = self.float_HE.multiply(ctxt1, ctxt2, in_new_ctxt=True)
+        ~ccMul
         return ccMul
     
     def relinearization_int(self, ctxt):
@@ -101,18 +110,16 @@ class SealHE:
         return res
     
     def scalar_product_int(self, arr1, arr2):
-        self.int_HE.rotateKeyGen()
         ccScPr = arr1 @ arr2
         return ccScPr
     
     def scalar_product_float(self, arr1, arr2):
-        self.float_HE.rotateKeyGen()
         ccScPr = arr1 @ arr2
         return ccScPr
     
     def save_in_bytes_int(self):#, arr):
-        self.int_HE.relinKeyGen()
-        self.int_HE.rotateKeyGen()
+        # self.int_HE.relinKeyGen()
+        # self.int_HE.rotateKeyGen()
 
         # ctxt = self.encryption_int(arr)
         # ptxt = self.encode_int(arr)        
@@ -128,8 +135,8 @@ class SealHE:
         return s_context, s_public_key, s_secret_key, s_relin_key, s_rotate_key#, s_c, s_p
     
     def save_in_bytes_float(self):#, arr):
-        self.float_HE.relinKeyGen()
-        self.float_HE.rotateKeyGen()
+        # self.float_HE.relinKeyGen()
+        # self.float_HE.rotateKeyGen()
 
         # ctxt = self.encryption_float(arr)
         # ptxt = self.encode_float(arr)        

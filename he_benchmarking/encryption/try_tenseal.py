@@ -1,7 +1,7 @@
 from tenseal_lib import TenSealHE
 import numpy as np
 
-example = TenSealHE()
+example = TenSealHE(n_int=4096, plain_degree_int=65537, n_float=8192, scale=2**30, coeff_mod_bit_sizes=[60, 30, 30, 30, 60])
 
 a = example.encryption_int(3)
 b = example.encryption_int(4)
