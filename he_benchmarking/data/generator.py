@@ -3,6 +3,14 @@ import inspect
 
 
 def get_operation_names(class_obj):
+    """
+    Get operations from class attributes
+    Args:
+        class_obj:
+
+    Returns:
+        generator, each entry is an operation
+    """
     for i in inspect.getmembers(class_obj):
         # to remove private and protected
         # functions
@@ -13,15 +21,16 @@ def get_operation_names(class_obj):
                 yield i[0]
 
 
-# DataGenerator class, which allows to randomly sample Integers and Floats and add them together.
-# This will create a ground truth, which can be used for benchmarking HE performance.
-# Parameters:
-#   - low: Lower boundary for random samples (e.g. -10000)
-#   - high: Higher boundary for random samples (e.g. 10000)
-#   - seed: Random seed, which can be set to ensure reproducibility
-# Python version: 3.10+ is needed, since the function "ground_truth" uses the match-case functionality.
 class DataGenerator:
-
+    """
+    DataGenerator class, which allows to randomly sample Integers and Floats and add them together.
+    This will create a ground truth, which can be used for benchmarking HE performance.
+    Parameters:
+       - low: Lower boundary for random samples (e.g. -10000)
+       - high: Higher boundary for random samples (e.g. 10000)
+       - seed: Random seed, which can be set to ensure reproducibility
+     Python version: 3.10+ is needed, since the function "ground_truth" uses the match-case functionality.
+    """
     def __init__(self, low=-20000, high=20000, size=10, seed=None):
         self.low = low
         self.high = high
@@ -31,11 +40,11 @@ class DataGenerator:
         if seed is not None:
             np.random.seed(seed)
 
-        self.x1_int, self.x2_int = self.generateInts(size)
-        self.x1_float, self.x2_float = self.generateFloats(size)
+        self.x1_int, self.x2_int = self.generate_ints(size)
+        self.x1_float, self.x2_float = self.generate_floats(size)
 
     # Get function for lower boundary
-    def getLow(self):
+    def get_low(self):
         return self.low
 
     # Set function for lower boundary 
@@ -46,35 +55,63 @@ class DataGenerator:
     def getHigh(self):
         return self.high
 
-    # Set function for higher boundary
-    def setHigh(self, high):
+    #
+    def set_high(self, high):
+        """
+        Set function for upper boundary
+        Args:
+            high: int upper boundary
+
+        Returns:
+
+        """
         self.high = high
 
     # Get function for random seed
-    def getSeed(self):
+    def get_seed(self):
         return self.seed
 
     # Set function for random seed
-    def setSeed(self, seed):
+    def set_seed(self, seed):
         self.seed = seed
 
-    # Function for generating Integers. The number of Integers that should be generated needs to be specified through "size".
-    # Returns two numpy arrays (x1,x2) with length "size" of randomly generated Integers between the lower and higher boundary.
-    def generateInts(self, size):
+    def generate_ints(self, size):
+        """
+        Function for generating Integers.
+        The number of Integers that should be generated needs to be specified through "size".
+        Returns two numpy arrays (x1,x2)
+        with length "size" of randomly generated Integers between the lower and higher boundary.
+        Args:
+            size:
+
+        Returns:
+
+        """
         x1 = np.random.randint(self.low, self.high, size=size)
         x2 = np.random.randint(self.low, self.high, size=size)
 
         return x1, x2
 
-    # Function for generating Floats. The number of Floats that should be generated needs to be specified through "size".
-    # Returns two numpy arrays (x1,x2) with length "size" of randomly generated Floats between the lower and higher boundary.
-    def generateFloats(self, size):
+    #
+    def generate_floats(self, size):
+        """
+        Function for generating Floats.
+        The number of Floats that should be generated needs to be specified through "size".
+        Returns two numpy arrays (x1,x2)
+        with length "size" of randomly generated Floats between the lower and higher boundary.
+        Args:
+            size:
+
+        Returns:
+
+        """
         x1 = np.random.uniform(self.low, self.high, size=size)
         x2 = np.random.uniform(self.low, self.high, size=size)
 
         return x1, x2
 
-    # Function for generating the ground truth of combining two randomly generated numpy arrays. The type of operation needs to be specified through "type".
+    # Function for generating the ground truth of combining two randomly generated numpy arrays.
+    # The type of operation needs to be specified through "type".
     # Options for "type":
     #   - 0: Addition
     #   - 1: Subtraction

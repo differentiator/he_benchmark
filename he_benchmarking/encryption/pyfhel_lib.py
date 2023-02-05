@@ -7,19 +7,11 @@ from math import isclose
 
 class PyfhelHE:
     def __init__(self, n_int=4096, plain_degree_int=65537, n_float=8192, scale=2 ** 30,
-                 coeff_mod_bit_sizes=(60, 30, 30, 30, 60)):  # , init_args, operation_list: set):
-        # self.operation_list = operation_list
-
-        # self.int_HE = Pyfhel(key_gen=True, context_params={'scheme': 'BFV', 'n': 2**13, 't': 65537, 'sec': 128,})
-
+                 coeff_mod_bit_sizes=(60, 30, 30, 30, 60)):
         self.int_HE = Pyfhel(key_gen=True,
                              context_params={'scheme': 'BFV', 'n': n_int, 't': plain_degree_int, 'sec': 128, })
         self.int_HE.relinKeyGen()
         self.int_HE.rotateKeyGen()
-        # self.tmp_dir_int = tempfile.TemporaryDirectory() #for saving and restoring integers info
-        # self.tmp_dir_name_int = self.tmp_dir_int.name
-
-        # self.float_HE = Pyfhel(key_gen=True, context_params={'scheme': 'CKKS', 'n': 2**14, 'scale': 2**30, 'qi_sizes': [60, 30, 30, 30, 60]}) 
         self.float_HE = Pyfhel(key_gen=True, context_params={'scheme': 'CKKS', 'n': n_float, 'scale': scale,
                                                              'qi_sizes': coeff_mod_bit_sizes})
         self.float_HE.relinKeyGen()
@@ -76,51 +68,51 @@ class PyfhelHE:
 
         return ctxt
 
-    def addition_int(self, ctxt1,
-                     ctxt2):  # to remember that to compute the operation the ctxt have to be built with the same context
+    def addition_int(self, ctxt1: Pyfhel.PyCtxt.PyCtxt,
+                     ctxt2: Pyfhel.PyCtxt.PyCtxt):  # to remember that to compute the operation the ctxt have to be built with the same context
         ccSum = self.int_HE.add(ctxt1, ctxt2, in_new_ctxt=True)
         return ccSum
 
-    def addition_float(self, ctxt1,
-                       ctxt2):  # to remember that to compute the operation the ctxt have to be built with the same context
+    def addition_float(self, ctxt1: Pyfhel.PyCtxt.PyCtxt,
+                       ctxt2: Pyfhel.PyCtxt.PyCtxt):  # to remember that to compute the operation the ctxt have to be built with the same context
         ccSum = self.float_HE.add(ctxt1, ctxt2, in_new_ctxt=True)
         return ccSum
 
-    def multiplication_int(self, ctxt1,
-                           ctxt2):  # to remember that to compute the operation the ctxt have to be built with the same context
+    def multiplication_int(self, ctxt1: Pyfhel.PyCtxt.PyCtxt,
+                           ctxt2: Pyfhel.PyCtxt.PyCtxt):  # to remember that to compute the operation the ctxt have to be built with the same context
         ccMul = self.int_HE.multiply(ctxt1, ctxt2, in_new_ctxt=True)
         ~ccMul
         return ccMul
 
-    def multiplication_float(self, ctxt1,
-                             ctxt2):  # to remember that to compute the operation the ctxt have to be built with the same context
+    def multiplication_float(self, ctxt1: Pyfhel.PyCtxt.PyCtxt,
+                             ctxt2: Pyfhel.PyCtxt.PyCtxt):  # to remember that to compute the operation the ctxt have to be built with the same context
         ccMul = self.float_HE.multiply(ctxt1, ctxt2, in_new_ctxt=True)
         ~ccMul
         return ccMul
 
-    def relinearization_int(self, ctxt):
+    def relinearization_int(self, ctxt: Pyfhel.PyCtxt.PyCtxt):
         self.int_HE.relinKeyGen()
         self.int_HE.relinearize(ctxt)
         return ctxt
 
-    def relinearization_float(self, ctxt):
+    def relinearization_float(self, ctxt: Pyfhel.PyCtxt.PyCtxt):
         self.float_HE.relinKeyGen()
         self.float_HE.relinearize(ctxt)
         return ctxt
 
-    def decrypt_int(self, ctxt):
+    def decrypt_int(self, ctxt: Pyfhel.PyCtxt.PyCtxt):
         res = self.int_HE.decryptInt(ctxt)
         return res
 
-    def decrypt_float(self, ctxt):
+    def decrypt_float(self, ctxt: Pyfhel.PyCtxt.PyCtxt):
         res = self.float_HE.decryptFrac(ctxt)
         return res
 
-    def scalar_product_int(self, arr1, arr2):
+    def scalar_product_int(self, arr1: Pyfhel.PyCtxt.PyCtxt, arr2: Pyfhel.PyCtxt.PyCtxt):
         ccScPr = arr1 @ arr2
         return ccScPr
 
-    def scalar_product_float(self, arr1, arr2):
+    def scalar_product_float(self, arr1: Pyfhel.PyCtxt.PyCtxt, arr2: Pyfhel.PyCtxt.PyCtxt):
         ccScPr = arr1 @ arr2
         return ccScPr
 
