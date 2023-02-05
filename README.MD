@@ -69,7 +69,7 @@ risk of increasing recklessness with regards to the analysis of personal data.
 * ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 * [Pyfhel](https://github.com/ibarrond/Pyfhel)<img src="https://pyfhel.readthedocs.io/en/latest/_static/logo_empty.svg" width="65" height="65" alt="Pyfhel">
 * [TenSeal](https://github.com/OpenMined/TenSEAL)<img src="https://github.com/OpenMined/design-assets/raw/master/logos/OM/mark-primary-trans.png" width="85" height="85" alt="TenSeal">
-* [Paliside](https://gitlab.com/palisade/palisade-python-demo)<img src="https://gitlab.com/uploads/-/system/project/avatar/17061057/Palisade_FinalLogo_Stacked_Color.png?width=64" width="65" height="65" alt="Paliside">
+* [Palisade](https://gitlab.com/palisade/palisade-python-demo)<img src="https://gitlab.com/uploads/-/system/project/avatar/17061057/Palisade_FinalLogo_Stacked_Color.png?width=64" width="65" height="65" alt="Palisade">
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -169,7 +169,7 @@ Results could be aggregated with different tools, such as R, for example, could 
 - [x] Extensible codebase
 - [x] Easy to integrate new HE library into benchmark
 - [x] Multiple Homomorphic Encryption frameworks supported
-    - [x] Paliside
+    - [x] Palisade
     - [x] Pyfhel
     - [x] TenSeal
     - [ ] Any other framework
@@ -195,4 +195,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [tenseal-url]: https://github.com/OpenMined/TenSEAL
 
 
-[paliside-url]: https://gitlab.com/palisade/palisade-python-demo
+[Palisade-url]: https://gitlab.com/palisade/palisade-python-demo
