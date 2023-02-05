@@ -1,6 +1,8 @@
 import numpy as np
 import inspect
 
+from utils.logging import logger
+
 
 def get_operation_names(class_obj):
     """
@@ -31,7 +33,8 @@ class DataGenerator:
        - seed: Random seed, which can be set to ensure reproducibility
      Python version: 3.10+ is needed, since the function "ground_truth" uses the match-case functionality.
     """
-    def __init__(self, low=-20000, high=20000, size=10, seed=None):
+
+    def __init__(self, low=-20000, high=20000, size=100, seed=None):
         self.low = low
         self.high = high
         self.size = size
@@ -40,6 +43,7 @@ class DataGenerator:
         if seed is not None:
             np.random.seed(seed)
 
+        logger.debug("Starting generation of the data")
         self.x1_int, self.x2_int = self.generate_ints(size)
         self.x1_float, self.x2_float = self.generate_floats(size)
 

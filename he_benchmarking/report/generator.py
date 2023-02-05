@@ -1,5 +1,8 @@
-import numpy as np
 from collections import defaultdict
+
+import numpy as np
+
+from utils.logging import logger
 
 
 class ReportGenerator:
@@ -7,6 +10,7 @@ class ReportGenerator:
     Class for processing benchmarking results
     to human-readable format
     """
+
     def __init__(self, benchmarking_result: dict):
         self.benchmarking_result = benchmarking_result
 
@@ -16,6 +20,7 @@ class ReportGenerator:
         Returns:
 
         """
+        logger.debug("Started ReportGenerator for received results")
         result = defaultdict(dict)
         for framework, ops in self.benchmarking_result.items():
             result[framework] = defaultdict(dict)
