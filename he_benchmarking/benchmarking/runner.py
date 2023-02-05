@@ -20,7 +20,7 @@ class Benchmark:
         plain_text_operations = list(get_operation_names(PlainTextOperations))
         for enc in self.encryption_classes:
             class_object = enc()
-            impl_name = enc.__name__
+            impl_name = str(enc.__name__)
             result[impl_name] = defaultdict(list)
             for operation in get_operation_names(DefaultOperations):
                 # 1. Do preparations

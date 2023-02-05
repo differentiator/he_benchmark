@@ -1,4 +1,6 @@
 import time
+import pathlib
+import os
 import argparse
 import itertools
 import json
@@ -9,20 +11,41 @@ from utils.validator import str2bool
 import encryption
 
 
-# operations that can be compared at the moment are encryption and decryption, sum, multipliation and dot product.
-# Then, save and restoring (be carefull, this operation have to be executed and benchamarked toghether because the output of the first function differs)
-# the mentioned operation work for both int and float
-# WAITING FOR --> RELINEARIZATION
-# POSSIBLE SOLUTIONS --> 1. include in all the operations in Pyfhel that require a relinearization (i think just mult and dot) a relinearization so to have a fair comparison
-#                        2. find a way to relinearize manually in TENSeal
-#                        3. ignore the problem because I don't want to work on Data Security anymore :)
+def dump_results_to_file(data: dict, path: pathlib.Path):
+    """
+    Save data to path as json
+    Args:
+        data: dict, with required data
+        path: pathlib.Path, to the output file
 
-def pretty_print(data):
+    Returns:
+
+    """
+    with open(path, "w+") as f:
+        json.dump(data, f)
+
+
+def pretty_print(data: dict):
+    """
+    Pretty print
+    Args:
+        data: dict
+
+    Returns:
+        print of the data with indents
+    """
     print(json.dumps(data, indent=4))
 
 
-def main(args):
-    """ Main entry point of the app """
+def main(args: argparse.Namespace):
+    """
+    Main entry point of the app
+    Args:
+        args: argparse.Namespace
+
+    Returns:
+        print of the benchmarking result
+    """
     classes = []
     for module in itertools.chain(*args.class_name):
         try:
@@ -33,7 +56,18 @@ def main(args):
     benchmark = Benchmark(encryption_classes=classes, num_runs=args.number_of_runs)
     results = benchmark.run()
     report_gen = ReportGenerator(results)
-    pretty_print(report_gen.generate())
+    report_results = report_gen.generate()
+    if args.output_folder:
+        # 1. Prepare path for the output
+        os.makedirs(args.output_folder, exist_ok=True)
+        out_dir = pathlib.Path(args.output_folder)
+        raw_path = out_dir / r"raw_results.json"
+        aggregated_path = out_dir / r"agg_results.json"
+        # 2. Save report and raw data
+        dump_results_to_file(results, raw_path)
+        dump_results_to_file(report_results, aggregated_path)
+
+    # pretty_print(report_results)
 
 
 if __name__ == "__main__":
@@ -43,6 +77,9 @@ if __name__ == "__main__":
                         help="Number of runs per operation")
     parser.add_argument("-c", "--class_name", action='append', nargs='+',
                         help="Class name of implemented backends, can be multiple")
+    parser.add_argument("-o", "--output_folder",
+                        default=None,
+                        help="Output folder to save results")
     parser.add_argument("-v", "--verbose", type=str2bool,
                         default=False,
                         help="Verbosity for logging")
