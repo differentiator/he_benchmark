@@ -72,7 +72,8 @@ def main(args: argparse.Namespace):
         dump_results_to_file(report_results, aggregated_path)
 
     logger.debug(report_results)
-    # pretty_print(report_results)
+    if not args.output_folder or args.verbose:
+        pretty_print(report_results)
 
 
 if __name__ == "__main__":
