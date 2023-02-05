@@ -67,9 +67,9 @@ risk of increasing recklessness with regards to the analysis of personal data.
 * ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
 * ![SciPy](https://img.shields.io/badge/SciPy-%230C55A5.svg?style=for-the-badge&logo=scipy&logoColor=%white)
 * ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-* [Pyfhel]([pyfhel-url])<img src="https://pyfhel.readthedocs.io/en/latest/_static/logo_empty.svg" width="65" height="65" alt="Pyfhel">
-* [TenSeal]([TenSeal-url])<img src="https://github.com/OpenMined/design-assets/raw/master/logos/OM/mark-primary-trans.png" width="85" height="85" alt="TenSeal">
-* [Paliside]([Paliside-url])<img src="https://gitlab.com/uploads/-/system/project/avatar/17061057/Palisade_FinalLogo_Stacked_Color.png?width=64" width="65" height="65" alt="Paliside">
+* [Pyfhel](https://github.com/ibarrond/Pyfhel)<img src="https://pyfhel.readthedocs.io/en/latest/_static/logo_empty.svg" width="65" height="65" alt="Pyfhel">
+* [TenSeal](https://github.com/OpenMined/TenSEAL)<img src="https://github.com/OpenMined/design-assets/raw/master/logos/OM/mark-primary-trans.png" width="85" height="85" alt="TenSeal">
+* [Paliside](https://gitlab.com/palisade/palisade-python-demo)<img src="https://gitlab.com/uploads/-/system/project/avatar/17061057/Palisade_FinalLogo_Stacked_Color.png?width=64" width="65" height="65" alt="Paliside">
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
