@@ -1,13 +1,15 @@
-import time
+import logging
 import pathlib
 import os
 import argparse
 import itertools
 import json
+
 from benchmarking.runner import Benchmark
 from report.generator import ReportGenerator
-
 from utils.validator import str2bool
+from utils.logging import logger
+
 import encryption
 
 
@@ -46,13 +48,15 @@ def main(args: argparse.Namespace):
     Returns:
         print of the benchmarking result
     """
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
     classes = []
     for module in itertools.chain(*args.class_name):
         try:
             imported_class = getattr(encryption, module)
             classes.append(imported_class)
         except AttributeError:
-            print("ERROR: missing python module: " + module + "\n")
+            logger.debug("ERROR: missing python module: " + module + "\n")
     benchmark = Benchmark(encryption_classes=classes, num_runs=args.number_of_runs)
     results = benchmark.run()
     report_gen = ReportGenerator(results)
@@ -67,6 +71,7 @@ def main(args: argparse.Namespace):
         dump_results_to_file(results, raw_path)
         dump_results_to_file(report_results, aggregated_path)
 
+    logger.debug(report_results)
     # pretty_print(report_results)
 
 

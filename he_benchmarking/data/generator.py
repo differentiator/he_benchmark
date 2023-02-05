@@ -16,7 +16,7 @@ def get_operation_names(class_obj):
         # functions
         if not i[0].startswith('_'):
             # To remove other methods that
-            # doesnot start with an underscore
+            # does not start with an underscore
             if not inspect.ismethod(i[1]):
                 yield i[0]
 
@@ -48,23 +48,15 @@ class DataGenerator:
         return self.low
 
     # Set function for lower boundary 
-    def setLow(self, low):
+    def set_low(self, low):
         self.low = low
 
     # Get function for higher boundary
-    def getHigh(self):
+    def get_high(self):
         return self.high
 
     #
     def set_high(self, high):
-        """
-        Set function for upper boundary
-        Args:
-            high: int upper boundary
-
-        Returns:
-
-        """
         self.high = high
 
     # Get function for random seed
@@ -110,14 +102,16 @@ class DataGenerator:
 
         return x1, x2
 
-    # Function for generating the ground truth of combining two randomly generated numpy arrays.
-    # The type of operation needs to be specified through "type".
-    # Options for "type":
-    #   - 0: Addition
-    #   - 1: Subtraction
-    #   - 2: Multiplication
-    #   - 3: Division
-    #   - 4: Scalar product
+    # Functions for generating the ground truth and inputs for combining one/two randomly generated numpy arrays.
+    # Possible operations:
+    # 0. Addition
+    # 1. Subtraction
+    # 2. Multiplication
+    # 3. Division
+    # 4. Scalar product
+    # 5. Encoding
+    # 6. Encoding
+
     def encode_int(self):
         return self.x1_int, None
 

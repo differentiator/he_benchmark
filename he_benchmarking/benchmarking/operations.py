@@ -1,4 +1,8 @@
 class DefaultOperations:
+    """
+    Config class with list of operations for which to measure time
+    Input will be encrypted before
+    """
     encode_int = "encode_int"
     encode_float = "encode_float"
     encryption_int_from_encoding = "encryption_int_from_encoding"
@@ -22,6 +26,9 @@ class DefaultOperations:
 
 
 class PlainTextOperations:
+    """
+    Config class with list of operations for which to measure time without encryption
+    """
     encode_int = "encode_int"
     encode_float = "encode_float"
     encryption_int_from_encoding = "encryption_int_from_encoding"
