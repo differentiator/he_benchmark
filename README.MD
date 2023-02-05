@@ -53,7 +53,7 @@ most libraries are currently implemented in C++, which prevents HE from fully be
 Python libraries for HE have been developed, which should reduce the obstacles of using an encryption technique as
 complex as HE. This paper illustrates basic use cases of these Python libraries by implementing a tool that benchmarks
 their performance in order to contribute to further disseminating HE. The results of an exemplary benchmarking study
-show that two Python HE libraries, namely *Pyfhel* and *TenSEAL*, significantly outperform another Python
+show that two Python HE libraries, namely *Pyfhel* and *TenSEAL*, clearly outperform another Python
 HE library named *Palisade* in any kind of operations and should therefore be preferred if performance is an
 issue. Even though this paper illustrates that HE libraries are improving in easiness of usability, HE should not be
 thought of as a means to solve all data privacy issues once and for all, as its potential also comes hand in hand with a
